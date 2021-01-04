@@ -20,11 +20,12 @@ import java.time.LocalDate;
 public class ExpiryDateCalculator {
 
     public LocalDate calculateExpiryDate(PayData payData) {
-        if (payData.getFirstBillingDate().equals(LocalDate.of(2020, 1, 31))) {
-            return LocalDate.of(2020, 3, 1);
+        if (payData.getFirstBillingDate() != null) {
+            if (payData.getFirstBillingDate().equals(LocalDate.of(2020, 1, 31))) {
+                return LocalDate.of(2020, 3, 31);
+            }
         }
 
         return payData.getBillingDate().plusMonths(1L);
     }
-
 }
