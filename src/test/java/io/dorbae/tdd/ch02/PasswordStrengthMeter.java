@@ -40,15 +40,7 @@ public class PasswordStrengthMeter {
             return PasswordStrength.WEAK;
         }
 
-        if (!lengthEnough) {
-            return PasswordStrength.NORMAL;
-        }
-
-        if (!containsNum) {
-            return PasswordStrength.NORMAL;
-        }
-
-        if (!containsUpper) {
+        if (metCount == 2) {
             return PasswordStrength.NORMAL;
         }
 
