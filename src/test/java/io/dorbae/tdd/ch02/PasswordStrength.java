@@ -16,5 +16,5 @@ package io.dorbae.tdd.ch02;
  *
  */
 public enum PasswordStrength {
-  STRONG
+  STRONG, NORMAL
 }
