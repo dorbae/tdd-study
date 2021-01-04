@@ -29,6 +29,11 @@ public class ExpiryDateCalculatorTest {
         this.assertExpiryDate(LocalDate.of(2020, 1, 31), 10_000, LocalDate.of(2020, 2, 29));
     }
 
+    @Test
+    void 납부일과_한달_뒤_일자가_같지_않음() {
+        this.assertExpiryDate(LocalDate.of(2020, 1, 31), 10_000, LocalDate.of(2020, 2, 28));
+    }
+
     private void assertExpiryDate(LocalDate billingDate, int payAmount,
         LocalDate expectedExpiryDate) {
         ExpiryDateCalculator cal = new ExpiryDateCalculator();
