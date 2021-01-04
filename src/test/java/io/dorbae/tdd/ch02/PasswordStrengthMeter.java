@@ -26,7 +26,11 @@ public class PasswordStrengthMeter {
       return PasswordStrength.NORMAL;
     }
 
-    if(!meetContainingNumberCriteria(password)) {
+    if (!meetContainingNumberCriteria(password)) {
+      return PasswordStrength.NORMAL;
+    }
+
+    if (!meetContainingUppercaseCriteria(password)) {
       return PasswordStrength.NORMAL;
     }
 
@@ -36,6 +40,16 @@ public class PasswordStrengthMeter {
   private boolean meetContainingNumberCriteria(String password) {
     for (char ch : password.toCharArray()) {
       if (ch >= '0' && ch <= '9') {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private boolean meetContainingUppercaseCriteria(String password) {
+    for (char ch : password.toCharArray()) {
+      if (Character.isUpperCase(ch)) {
         return true;
       }
     }
