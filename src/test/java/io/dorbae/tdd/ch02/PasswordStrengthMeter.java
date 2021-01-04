@@ -23,24 +23,19 @@ public class PasswordStrengthMeter {
         }
 
         int metCount = 0;
-        boolean lengthEnough = password.length() >= 8;
-        if (lengthEnough) {
+        if (password.length() >= 8) {
             metCount++;
         }
-        boolean containsNum = meetContainingNumberCriteria(password);
-        if (containsNum) {
+        if (meetContainingNumberCriteria(password)) {
             metCount++;
         }
-        boolean containsUpper = meetContainingUppercaseCriteria(password);
-        if (containsUpper) {
+        if (meetContainingUppercaseCriteria(password)) {
             metCount++;
         }
 
         if (metCount == 1) {
             return PasswordStrength.WEAK;
-        }
-
-        if (metCount == 2) {
+        } else if (metCount == 2) {
             return PasswordStrength.NORMAL;
         }
 
