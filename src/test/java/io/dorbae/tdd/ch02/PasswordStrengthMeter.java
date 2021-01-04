@@ -18,7 +18,7 @@ package io.dorbae.tdd.ch02;
 public class PasswordStrengthMeter {
 
   public PasswordStrength meter(String password) {
-    if (password == null) {
+    if (password == null || password.isBlank()) {
       return PasswordStrength.INVALID;
     }
 
