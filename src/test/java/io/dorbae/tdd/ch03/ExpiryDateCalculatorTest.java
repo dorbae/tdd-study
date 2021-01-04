@@ -26,6 +26,7 @@ public class ExpiryDateCalculatorTest {
     void 만원_납부하면_한달_뒤가_만료일_됨() {
         this.assertExpiryDate(LocalDate.of(2020, 3, 1), 10_000, LocalDate.of(2020, 4, 1));
         this.assertExpiryDate(LocalDate.of(2020, 5, 5), 10_000, LocalDate.of(2020, 6, 5));
+        this.assertExpiryDate(LocalDate.of(2020, 1, 31), 10_000, LocalDate.of(2020, 2, 29));
     }
 
     private void assertExpiryDate(LocalDate billingDate, int payAmount,
