@@ -19,7 +19,7 @@
 graph LR
     step1[한 번에 코드 구현] --> step2[테스트]
     step2 --> step3[디버깅 & 코드 수정]
-    step3 --> step2
+    step3 --> step1
 ```
 * 테스트할 코드가 너무 많아짐
 
@@ -36,7 +36,7 @@ graph LR
 graph LR
     step1[테스트] --> step2[코딩]
     step2 --> step3[리팩토링]
-    step3 --> step2
+    step3 --> step1
 ```
 
 * 테스트를 먼저 작성 -> 테스트를 통과시킬만큼 코드를 작성 -> 리팩토링의 과정을 반복
