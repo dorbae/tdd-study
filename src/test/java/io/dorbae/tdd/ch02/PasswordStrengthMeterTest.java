@@ -48,6 +48,11 @@ public class PasswordStrengthMeterTest {
     this.assertStrength(null, PasswordStrength.INVALID);
   }
 
+  @Test
+  void emptyInputThenInvalid() {
+    this.assertStrength("", PasswordStrength.INVALID);
+  }
+
   private void assertStrength(String password, PasswordStrength expected) {
     PasswordStrength result = meter.meter(password);
     assertEquals(expected, result);
