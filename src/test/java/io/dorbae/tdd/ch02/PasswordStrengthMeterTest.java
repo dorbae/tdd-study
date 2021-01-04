@@ -23,9 +23,11 @@ public class PasswordStrengthMeterTest {
   /*
    * 비밀번호의 보안 강도 체크 (안전, 보통, 위험)
    */
+
+  private PasswordStrengthMeter meter = new PasswordStrengthMeter();
+
   @Test
   void meetAllCriteriaThenString() {
-    PasswordStrengthMeter meter = new PasswordStrengthMeter();
     PasswordStrength result = meter.meter("ab12!@AB");
     assertEquals(PasswordStrength.STRONG, result);
 
@@ -35,14 +37,12 @@ public class PasswordStrengthMeterTest {
 
   @Test
   void meetOtherCriteriaExceptForLengthThenNormal() {
-    PasswordStrengthMeter meter = new PasswordStrengthMeter();
     PasswordStrength result = meter.meter("ab12!@A");
     assertEquals(PasswordStrength.NORMAL, result);
   }
 
   @Test
   void meetOtherCriteriaExceptForNumberThenNormal() {
-    PasswordStrengthMeter meter = new PasswordStrengthMeter();
     PasswordStrength result = meter.meter("ab!@ABqwer");
     assertEquals(PasswordStrength.NORMAL, result);
   }
