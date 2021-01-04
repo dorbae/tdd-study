@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+group 'io.dorbae'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.5.0'
+}
+
+test {
+    useJUnitPlatform()  // JUnit 5 코드 사용 위해서 추가
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
