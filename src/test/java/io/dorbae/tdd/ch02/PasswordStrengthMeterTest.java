@@ -39,4 +39,11 @@ public class PasswordStrengthMeterTest {
     PasswordStrength result = meter.meter("ab12!@A");
     assertEquals(PasswordStrength.NORMAL, result);
   }
+
+  @Test
+  void meetOtherCriteriaExceptForNumberThenNormal() {
+    PasswordStrengthMeter meter = new PasswordStrengthMeter();
+    PasswordStrength result = meter.meter("ab!@ABqwer");
+    assertEquals(PasswordStrength.NORMAL, result);
+  }
 }
