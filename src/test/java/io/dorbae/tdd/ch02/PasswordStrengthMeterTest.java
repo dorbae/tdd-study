@@ -28,22 +28,23 @@ public class PasswordStrengthMeterTest {
 
   @Test
   void meetAllCriteriaThenString() {
-    PasswordStrength result = meter.meter("ab12!@AB");
-    assertEquals(PasswordStrength.STRONG, result);
+    this.assertStrength("ab12!@AB", PasswordStrength.STRONG);
+    this.assertStrength("abc1!Add", PasswordStrength.STRONG);
 
-    PasswordStrength result2 = meter.meter("abc1!Add");
-    assertEquals(PasswordStrength.STRONG, result2);
   }
 
   @Test
   void meetOtherCriteriaExceptForLengthThenNormal() {
-    PasswordStrength result = meter.meter("ab12!@A");
-    assertEquals(PasswordStrength.NORMAL, result);
+    this.assertStrength("ab12!@A", PasswordStrength.NORMAL);
   }
 
   @Test
   void meetOtherCriteriaExceptForNumberThenNormal() {
-    PasswordStrength result = meter.meter("ab!@ABqwer");
-    assertEquals(PasswordStrength.NORMAL, result);
+    this.assertStrength("ab!@ABqwer", PasswordStrength.NORMAL);
+  }
+
+  private void assertStrength(String password, PasswordStrength expected) {
+    PasswordStrength result = meter.meter(password);
+    assertEquals(expected, result);
   }
 }
