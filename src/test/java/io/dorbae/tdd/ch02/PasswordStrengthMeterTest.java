@@ -18,8 +18,13 @@ import org.junit.jupiter.api.Test;
  *
  */
 public class PasswordStrengthMeterTest {
+  /*
+   * 비밀번호의 보안 강도 체크 (안전, 보통, 위험)
+   */
   @Test
-  void verify() {
-
+  void meetAllCriteriaThenString() {
+    PasswordStrengthMeter meter = new PasswordStrengthMeter();
+    타입? result = meter.meter("ab12!@AB");
+    assertEqaul(expected, result);
   }
 }
