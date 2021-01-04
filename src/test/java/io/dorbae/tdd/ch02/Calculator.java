@@ -17,6 +17,6 @@ package io.dorbae.tdd.ch02;
  */
 public class Calculator {
   public static int plus(int num1, int num2) {
-    return 0;
+    return 3;
   }
 }

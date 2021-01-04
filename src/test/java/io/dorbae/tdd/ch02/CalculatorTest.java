@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 public class CalculatorTest {
   @Test
   void plus() {
-    int result = Caculator.plus(1, 2);
+    int result = Calculator.plus(1, 2);
     assertEquals(3, result);
   }
 
