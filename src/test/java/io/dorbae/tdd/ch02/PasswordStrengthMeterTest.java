@@ -1,5 +1,7 @@
 package io.dorbae.tdd.ch02;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 /*
@@ -24,7 +26,7 @@ public class PasswordStrengthMeterTest {
   @Test
   void meetAllCriteriaThenString() {
     PasswordStrengthMeter meter = new PasswordStrengthMeter();
-    타입? result = meter.meter("ab12!@AB");
-    assertEqaul(expected, result);
+    PasswordStrength result = meter.meter("ab12!@AB");
+    assertEquals(PasswordStrength.STRONG, result);
   }
 }
