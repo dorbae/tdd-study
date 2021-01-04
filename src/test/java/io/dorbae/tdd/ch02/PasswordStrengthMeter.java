@@ -33,7 +33,7 @@ public class PasswordStrengthMeter {
             metCount++;
         }
 
-        if (metCount == 1) {
+        if (metCount <= 1) {
             return PasswordStrength.WEAK;
         } else if (metCount == 2) {
             return PasswordStrength.NORMAL;
