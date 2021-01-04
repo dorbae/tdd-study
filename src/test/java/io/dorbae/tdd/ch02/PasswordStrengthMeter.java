@@ -22,19 +22,21 @@ public class PasswordStrengthMeter {
             return PasswordStrength.INVALID;
         }
 
+        int metCount = 0;
         boolean lengthEnough = password.length() >= 8;
+        if (lengthEnough) {
+            metCount++;
+        }
         boolean containsNum = meetContainingNumberCriteria(password);
+        if (containsNum) {
+            metCount++;
+        }
         boolean containsUpper = meetContainingUppercaseCriteria(password);
-
-        if (lengthEnough && !containsNum && !containsUpper) {
-            return PasswordStrength.WEAK;
+        if (containsUpper) {
+            metCount++;
         }
 
-        if (!lengthEnough && containsNum && !containsUpper) {
-            return PasswordStrength.WEAK;
-        }
-
-        if (!lengthEnough && !containsNum && containsUpper) {
+        if (metCount == 1) {
             return PasswordStrength.WEAK;
         }
 
