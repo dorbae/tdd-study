@@ -27,7 +27,7 @@ public class PasswordStrengthMeterTest {
     private PasswordStrengthMeter meter = new PasswordStrengthMeter();
 
     @Test
-    void meetAllCriteriaThenString() {
+    void meetAllCriteriaThenStrong() {
         this.assertStrength("ab12!@AB", PasswordStrength.STRONG);
         this.assertStrength("abc1!Add", PasswordStrength.STRONG);
 
@@ -56,6 +56,11 @@ public class PasswordStrengthMeterTest {
     @Test
     void meetOtherCriteriaExceptForUppercaseThenNormal() {
         this.assertStrength("ab12!@df", PasswordStrength.NORMAL);
+    }
+
+    @Test
+    void meetOnlyLengthCriteriaThenWeak() {
+        this.assertStrength("abdefghi", PasswordStrength.WEAK);
     }
 
     private void assertStrength(String password, PasswordStrength expected) {
