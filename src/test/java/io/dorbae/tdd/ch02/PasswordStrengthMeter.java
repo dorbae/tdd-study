@@ -17,43 +17,43 @@ package io.dorbae.tdd.ch02;
  */
 public class PasswordStrengthMeter {
 
-  public PasswordStrength meter(String password) {
-    if (password == null || password.isBlank()) {
-      return PasswordStrength.INVALID;
+    public PasswordStrength meter(String password) {
+        if (password == null || password.isBlank()) {
+            return PasswordStrength.INVALID;
+        }
+
+        if (password.length() < 8) {
+            return PasswordStrength.NORMAL;
+        }
+
+        if (!meetContainingNumberCriteria(password)) {
+            return PasswordStrength.NORMAL;
+        }
+
+        if (!meetContainingUppercaseCriteria(password)) {
+            return PasswordStrength.NORMAL;
+        }
+
+        return PasswordStrength.STRONG;
     }
 
-    if (password.length() < 8) {
-      return PasswordStrength.NORMAL;
+    private boolean meetContainingNumberCriteria(String password) {
+        for (char ch : password.toCharArray()) {
+            if (ch >= '0' && ch <= '9') {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    if (!meetContainingNumberCriteria(password)) {
-      return PasswordStrength.NORMAL;
+    private boolean meetContainingUppercaseCriteria(String password) {
+        for (char ch : password.toCharArray()) {
+            if (Character.isUpperCase(ch)) {
+                return true;
+            }
+        }
+
+        return false;
     }
-
-    if (!meetContainingUppercaseCriteria(password)) {
-      return PasswordStrength.NORMAL;
-    }
-
-    return PasswordStrength.STRONG;
-  }
-
-  private boolean meetContainingNumberCriteria(String password) {
-    for (char ch : password.toCharArray()) {
-      if (ch >= '0' && ch <= '9') {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  private boolean meetContainingUppercaseCriteria(String password) {
-    for (char ch : password.toCharArray()) {
-      if (Character.isUpperCase(ch)) {
-        return true;
-      }
-    }
-
-    return false;
-  }
 }

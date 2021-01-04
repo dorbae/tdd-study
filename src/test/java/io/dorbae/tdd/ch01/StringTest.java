@@ -21,10 +21,10 @@ import org.junit.jupiter.api.Test;
  */
 public class StringTest {
 
-  @Test
-  void substring() {
-    String str = "abcde";
-    assertEquals("cd", str.substring(2, 4));
-  }
+    @Test
+    void substring() {
+        String str = "abcde";
+        assertEquals("cd", str.substring(2, 4));
+    }
 
 }
