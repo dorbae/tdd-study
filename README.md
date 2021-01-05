@@ -93,7 +93,7 @@ graph LR
 step1[테스트 구상] --> step2[테스트할 기능 실행]
 step2 --> step3[클래스, 매서드, 함수 이름 정의]
 step2 --> step4[파라미터 정의]
-step1 --> step5[겱과 검증]
+step1 --> step5[결과 검증]
 step5 --> step6[리턴 값 정의]
 ```
 
