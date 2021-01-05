@@ -78,6 +78,18 @@ public class ExpiryDateCalculatorTest {
             .billingDate(LocalDate.of(2020, 2, 29))
             .payAmount(20_000)
             .build(), LocalDate.of(2020, 4, 30));
+
+        this.assertExpiryDate(PayData.builder()
+            .firstBillingDate(LocalDate.of(2020, 1, 31))
+            .billingDate(LocalDate.of(2020, 2, 29))
+            .payAmount(40_000)
+            .build(), LocalDate.of(2020, 6, 30));
+
+        this.assertExpiryDate(PayData.builder()
+            .firstBillingDate(LocalDate.of(2020, 3, 31))
+            .billingDate(LocalDate.of(2020, 4, 30))
+            .payAmount(30_000)
+            .build(), LocalDate.of(2020, 7, 31));
     }
 
     private void assertExpiryDate(PayData payData, LocalDate expectedExpiryDate) {
