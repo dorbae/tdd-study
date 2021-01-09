@@ -105,5 +105,157 @@ step5 --> step6[리턴 값 정의]
 * 필요한 기능에 대한 상세한 예시를 기준으로 입력, 결과값을 도출
 * 구체적인 테스트 케이스 마련
 
-### 설계 과정을 지원하는 TDD
-* TDD 
+## Chapter 05. JUnit 5 기초
+### JUnit 5 모듈 구성
+#### JUnit 플랫폼
+* 테스팅 프레임워크를 구동하기 위한 런처와 테스트 엔진을 위한 API 제공
+* maven-surefire-plugin 2.22.0 버전부터 JUnit 5 플랫폼을 지원
+* Gradle 4.6부터 JUnit 5 플랫폼 지원
+* 그 이하 버전은 별도로 JUnit 5 플랫폼 사용을 명시해야 함
+  * maven
+  ```xml
+  <dependencies>
+    <dependency>
+      <groudId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.5.0</version>
+      <scope>test</scope>
+    <dependency>
+  </dependencies>
+  
+  ...
+  <build>
+    <plugins>
+      <!-- JUnit 5 플랫폼 사용 명시 -->
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.1</version>
+      </plugin>
+  </build>
+  ```
+  * gradle
+  ```gradle
+  plugins {
+    id 'java'
+  }
+
+  ...
+
+  dependencies {
+    testImplementation('org.junit.jupiter:junit-jupiter:5.5.0')
+  }
+
+  test {
+    // JUnit 5 플랫폼 사용 명시
+    useJUnitPlatform()
+  }s
+  ```
+#### JUnit 주피터
+* JUnit 5를 위한 테스트 API와 실행 엔진을 제공
+* junit-jupiter-api 모듈, junit-jupiter-params 모듈, junit-jupiterr-engine 모듈을 포함
+* jupiter-jupiter 모듈은 JUnit 5.4 버전부터 제공. 그 이하 버전은 아래와 같이 모듈을 각각 추가해줘야 함
+```xml
+<dependency>
+  <groupId>org.junit.jupiter</groupdId>
+  <artifactId>junit-jupiter-api</artifactId>
+  <version>5.3.0</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>org.junit.jupiter</groupdId>
+  <artifactId>junit-jupiter-engine</artifactId>
+  <version>5.3.0</version>
+  <scope>test</scope>
+</dependency>
+```
+#### JUnit 빈티지
+* JUnit 3, 4로 작성된 테스트를 JUnit 플랫폼에서 실행하기 위한 모듈
+
+### @Test Annotation
+* 테스트 메소드를 명시
+* 테스트 클래스의 이름은 별도 규칙은 없으나, 보통 'Test'를 접미사로 붙임
+  * e.g. public class Sum**Test** {}
+* 테스트 메소드는 private 접근지시자를 사용 불가
+
+### 주요 단언 메서드
+* Assertions 클래스에 다양한 검증 메서드를 제공
+* assertEqauls, assertTrue 등
+#### assertSame(Object, Object)
+*  두 객체가 동일한 객체인지 검사
+#### fail()
+* 테스트를 실패 처리
+* e.g. 비밀번호 검증이 실패해야되는데, 인증 처리된다면 테스트 실패 처리
+```java
+try {
+  AuthService authService = new AuthService();
+  authService.authenticate(null, null); // 인증 실패 케이스
+  fail(); // 비정상적으로 인증이 성공하면 실패 에러 발생
+} catch(IllegalArgumentException e) {}
+```
+#### assertThrows(Class<T>, Executable), assertDoesNotThrow(Class<T>, Executable)
+* Exception 발생 유무 검사
+```java
+assertThrows(IllegalArgmentException.class,
+  () -> {
+    AuthService authService = new AuthService();
+    authService.authenticate(null, null);
+  });
+```
+#### assertAll()
+* 중간 실패와 상관없이 모든 테스트 메서드를 실행하고 결과를 확인
+```assertAll(
+  () -> assertEqual(3, 5 / 2),
+  () -> assertEquals(4, 2 * 2),
+  () -> assertEquals(6, 11 / 2)
+);
+```
+
+### 테스트 라이프사이클
+#### @BeforeEach
+* 각 @Test 메서드가 실행되기 전에 매번 호출
+* 테스트에 필요한 사전 작업이나 리소스 생성 등을 수행
+#### @AfterEach
+* 각 @Test 메서드가 실행된 후에 매번 호출
+* 테스트에 사용한 리소스 정리 등에 사용
+#### @BeforeAll
+* 테스트 클래스의 모든 테스트 메서드가 실행되기 전에 한번 호출
+* static 메서드에 적용 가능
+#### @AfterAll
+* 테스트 클래스의 모든 테스트 메서드가 실행된 후에 한번 호출
+* static 메서드에 적용 가능
+
+### 테스트 메서드 간 의존성
+* 테스트 메서드 간의 필드를 공유하거나 의존되는 작업을 하지 않도록 주의
+* 테스트 메서드의 실행 순서는 지정할 수 있으나, 일반적으로 그 순서는 플랫폼에 의해 자유롭게 정해짐
+* 테스트 메서드 간 의존성은 유지보수를 어렵게 만드는 요인
+
+### 추가 Annotation
+#### @DisplayName
+* 테스트 클래스나 테스트 메서드의 표시 이름을 지정
+```java
+@DisplayName("테스트 클래스")
+public class DisplayNameTest {
+  @DisplayName("값 같은지 비교")
+  @Test
+  void assertEqualsMethod() {
+    ...
+  }
+}
+```
+#### @Disabled
+* 지정한 테스트 클래스나 메서드를 테스트 실행에서 제외
+
+### 모든 테스트 실행하기
+* 프로젝트 내에 모든 테스트 클래스 및 메서드를 실행
+* Maven
+```
+mvn test 
+또는 Wrapper 사용 시,
+mvnw test
+```
+* Gradle
+```
+gradle test
+또는 Wrapper 사용 시,
+gradlew test
+```
